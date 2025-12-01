@@ -24,7 +24,7 @@ const getColorVariable = (colorName: string) => {
     <div class="container">
 
       <v-row class="justify-center">
-        <h2 class="section-title">Minhas Especialidades</h2>
+        <h2 class="section-title">Nossas Especialidades</h2>
       </v-row>
       <v-row class="justify-center px-2 px-sm-4 px-md-8">
         <v-col v-for="feature in features.filter(f => f.feat === true)" :key="feature.id" cols="12" md="4" sm="12"

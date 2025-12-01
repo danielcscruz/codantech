@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useHeroVisibilityStore } from '@/stores/heroVisibility'
-import logoImg from '@/assets/img/logo.png'
+// import logoImg from '@/assets/img/logo.png'
+import logoCodan from '@/assets/img/codanlogo.png'
+
 
 const heroStore = useHeroVisibilityStore()
 
@@ -12,10 +14,10 @@ const showLogo = computed(() => heroStore.shouldShowLogo)
   <Transition name="logo-fade">
     <RouterLink v-show="showLogo" to="/" class="logo-link">
       <v-sheet class="logo-group" elevation="0" color="transparent" rounded>
-        <v-img :src="logoImg" alt="daniel" width="50" height="50" class="logo-img" contain />
+        <v-img :src="logoCodan" alt="codan" width="50" height="50" class="logo-img" contain />
         <div>
-          <h3 class="logo-text mb-0">Daniel Cruz</h3>
-          <h6 class="logo-subtext mb-0">Desenvolvedor Full Stack</h6>
+          <h3 class="logo-text mb-0">CODAN</h3>
+          <!-- <h6 class="logo-subtext mb-0">lab</h6> -->
         </div>
       </v-sheet>
     </RouterLink>

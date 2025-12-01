@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useHeroVisibilityStore } from '@/stores/heroVisibility'
-import logoImg from '@/assets/img/logo.png'
+import logoCodan from '@/assets/img/codanlogo.png'
+
 
 const heroStore = useHeroVisibilityStore()
 const heroRef = ref<HTMLElement>()
@@ -112,9 +113,9 @@ onUnmounted(() => {
       <v-chip class="ma-2 mt-8 mb-8 v-chip-glow-intense" color="success" variant="outlined">
         Disponível para Projetos
       </v-chip>
-      <v-img :src="logoImg" height="125px" class="mb-5"></v-img>
-      <h2><span>Daniel cruZ</span></h2>
-      <h3>Desenvolvedor Fullstack</h3>
+      <v-img :src="logoCodan" height="125px" class="mb-5"></v-img>
+      <h2><span>CODAN</span></h2>
+      <h3>Desenvolvimento Web</h3>
       <div class="typewriter-container">
         <p>Soluções web e automações com
           <br><span class="typewriter-text">{{ displayText || '&nbsp;' }}</span>
@@ -187,7 +188,8 @@ p {
 }
 
 span {
-  color: #4caf50;
+  color: #cfcfcf;
+  /* color: #23C490; */
   line-height: 60px;
 }
 

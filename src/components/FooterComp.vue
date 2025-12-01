@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LogoUI from './ui/LogoUI.vue';
-import SocialUI from './ui/SocialUI.vue';
+// import SocialUI from './ui/SocialUI.vue';
 </script>
 <template>
   <v-footer color="bgdark" dark fluid class="footer-component d-flex flex-column sjustify-center pa-4">
@@ -11,17 +11,17 @@ import SocialUI from './ui/SocialUI.vue';
             <LogoUI />
 
           </div>
-          <p class="mt-4 ml-4 text-left">Especializado em Python, Django e na criação de aplicações web escaláveis,
+          <p class="mt-4 ml-4 text-left">Somos especializados em desenvolvimento Python, Django e na criação de aplicações web escaláveis,
             soluções
             de API e automações para empresas </p>
-          <SocialUI />
+          <!-- <SocialUI /> -->
 
         </v-col>
         <v-col cols="12" md="4">
         </v-col>
         <v-col cols="12" md="4" class="mb-10">
           <h3 class="title">Vamos conversar</h3>
-          <p>Tem um projeto em mente? Vamos conversar sobre como posso ajudar a desenvolver uma solução robusta,
+          <p>Tem um projeto em mente? Vamos conversar sobre como podemos ajudar a desenvolver uma solução robusta,
             escalável e sob medida para você.</p>
           <v-btn size="small" to="/contact" color="primary" append-icon="mdi-arrow-right-thin" variant="tonal"
             class="px-3 mt-4 mr-6">Começar um
@@ -30,7 +30,7 @@ import SocialUI from './ui/SocialUI.vue';
       </v-row>
     </v-container>
     <v-row class="bottom pt-4 mb-4">
-      <p class="superfooter">&copy; {{ new Date().getFullYear() }} - Desenvolvido por <span>Daniel Cruz</span>
+      <p class="superfooter">&copy; {{ new Date().getFullYear() }} - Desenvolvido por <span>CODAN</span>
       </p>
     </v-row>
   </v-footer>

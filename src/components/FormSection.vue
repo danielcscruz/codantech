@@ -62,7 +62,7 @@
 
             <div class="contact-content">
               <!-- Endereço -->
-              <v-list-item class="px-0 mb-3">
+              <!-- <v-list-item class="px-0 mb-3">
                 <template v-slot:prepend>
                   <v-icon color="primary" size="24">mdi-map-marker</v-icon>
                 </template>
@@ -72,10 +72,10 @@
                   {{ contact.neighborhood }} - {{ contact.city }}, {{ contact.state }}<br>
                   {{ contact.cep }}
                 </v-list-item-subtitle>
-              </v-list-item>
+              </v-list-item> -->
 
               <!-- Telefone -->
-              <v-list-item class="px-0 mb-3">
+              <!-- <v-list-item class="px-0 mb-3">
                 <template v-slot:prepend>
                   <v-icon color="primary" size="24">mdi-phone</v-icon>
                 </template>
@@ -83,7 +83,7 @@
                 <v-list-item-subtitle class="text-body-2">
                   {{ contact.tel }}<br>
                 </v-list-item-subtitle>
-              </v-list-item>
+              </v-list-item>  -->
 
               <!-- Email -->
               <v-list-item class="px-0 mb-4">
@@ -114,7 +114,7 @@
 
               <!-- Redes Sociais -->
               <v-card-subtitle class="px-0 text-subtitle-2 mb-3 text-center">
-                Siga-me nas redes sociais
+                Siga-nos nas redes sociais
               </v-card-subtitle>
 
               <SocialUI />
