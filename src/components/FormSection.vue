@@ -1,50 +1,98 @@
 <template>
-  <div class="section ">
+  <div class="section">
     <div class="container">
       <v-row class="justify-center px-2 px-sm-4 px-md-8">
-        <!-- Coluna do Formulário (2/3 da largura) -->
         <v-col cols="12" md="8">
           <v-card elevation="2" class="pa-6 card">
             <v-card-title class="text-h5 mb-4 title">
               Entre em Contato
             </v-card-title>
 
-            <v-form ref="contactForm" v-model="formValid">
+            <v-form ref="contactForm" v-model="formValid" @submit.prevent="submitForm">
               <v-row>
-                <!-- Nome e Sobrenome -->
-                <v-col cols="12" sm="6">
-                  <v-text-field v-model="form.nome" label="Nome" variant="outlined" color="white" base-color="white"
-                    :rules="nameRules" required></v-text-field>
-                </v-col>
+                <input
+                  type="text"
+                  v-model="form._honey"
+                  style="display:none"
+                  tabindex="-1"
+                  autocomplete="off"
+                >
 
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="form.sobrenome" label="Sobrenome" variant="outlined" color="white"
-                    :rules="nameRules" required></v-text-field>
+                  <v-text-field
+                    v-model="form.nome"
+                    label="Nome"
+                    variant="outlined"
+                    color="white"
+                    base-color="white"
+                    :rules="nameRules"
+                    :disabled="isSubmitting"
+                    required
+                  ></v-text-field>
                 </v-col>
 
-                <!-- Email -->
-                <v-col cols="12">
-                  <v-text-field v-model="form.email" label="Email" variant="outlined" type="email" color="white"
-                    :rules="emailRules" required></v-text-field>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="form.sobrenome"
+                    label="Sobrenome"
+                    variant="outlined"
+                    color="white"
+                    :rules="nameRules"
+                    :disabled="isSubmitting"
+                    required
+                  ></v-text-field>
                 </v-col>
 
-                <!-- Assunto -->
                 <v-col cols="12">
-                  <v-select v-model="form.assunto" label="Assunto" variant="outlined" color="white" :items="assuntos"
-                    :rules="requiredRules" required></v-select>
+                  <v-text-field
+                    v-model="form.email"
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    color="white"
+                    :rules="emailRules"
+                    :disabled="isSubmitting"
+                    required
+                  ></v-text-field>
                 </v-col>
 
-                <!-- Mensagem -->
                 <v-col cols="12">
-                  <v-textarea v-model="form.mensagem" label="Mensagem" variant="outlined" color="white" rows="5"
-                    :rules="messageRules" counter="500" required></v-textarea>
+                  <v-select
+                    v-model="form.assunto"
+                    label="Assunto"
+                    variant="outlined"
+                    color="white"
+                    :items="assuntos"
+                    :rules="requiredRules"
+                    :disabled="isSubmitting"
+                    required
+                  ></v-select>
                 </v-col>
 
-                <!-- Botão de Envio -->
                 <v-col cols="12">
-                  <v-btn color="primary" size="large" :disabled="BACKEND_CONFIG_MODE || !formValid" @click="submitForm"
-                    block>
-                    <v-icon left>mdi-send</v-icon>
+                  <v-textarea
+                    v-model="form.mensagem"
+                    label="Mensagem"
+                    variant="outlined"
+                    color="white"
+                    rows="5"
+                    :rules="messageRules"
+                    counter="500"
+                    :disabled="isSubmitting"
+                    required
+                  ></v-textarea>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-btn
+                    color="primary"
+                    size="large"
+                    :disabled="!formValid || isSubmitting"
+                    :loading="isSubmitting"
+                    @click="submitForm"
+                    block
+                  >
+                    <v-icon left class="mr-2">mdi-send</v-icon>
                     Enviar Mensagem
                   </v-btn>
                 </v-col>
@@ -53,7 +101,6 @@
           </v-card>
         </v-col>
 
-        <!-- Coluna de Informações de Contato (1/3 da largura) -->
         <v-col cols="12" md="4">
           <v-card elevation="2" class="pa-6 fill-height card contact-info-card">
             <v-card-title class="text-h5 mb-4 title">
@@ -61,31 +108,6 @@
             </v-card-title>
 
             <div class="contact-content">
-              <!-- Endereço -->
-              <!-- <v-list-item class="px-0 mb-3">
-                <template v-slot:prepend>
-                  <v-icon color="primary" size="24">mdi-map-marker</v-icon>
-                </template>
-                <v-list-item-title class="text-subtitle-2">Endereço</v-list-item-title>
-                <v-list-item-subtitle class="text-body-2">
-                  {{ contact.street }}, {{ contact.number }}<br>
-                  {{ contact.neighborhood }} - {{ contact.city }}, {{ contact.state }}<br>
-                  {{ contact.cep }}
-                </v-list-item-subtitle>
-              </v-list-item> -->
-
-              <!-- Telefone -->
-              <!-- <v-list-item class="px-0 mb-3">
-                <template v-slot:prepend>
-                  <v-icon color="primary" size="24">mdi-phone</v-icon>
-                </template>
-                <v-list-item-title class="text-subtitle-2">Telefone</v-list-item-title>
-                <v-list-item-subtitle class="text-body-2">
-                  {{ contact.tel }}<br>
-                </v-list-item-subtitle>
-              </v-list-item>  -->
-
-              <!-- Email -->
               <v-list-item class="px-0 mb-4">
                 <template v-slot:prepend>
                   <v-icon color="primary" size="24">mdi-email</v-icon>
@@ -96,7 +118,6 @@
                 </v-list-item-subtitle>
               </v-list-item>
 
-              <!-- Tempo de Resposta -->
               <v-list-item class="px-0 mb-4">
                 <template v-slot:prepend>
                   <v-icon color="primary" size="24">mdi-clock</v-icon>
@@ -108,11 +129,9 @@
               </v-list-item>
             </div>
 
-            <!-- Seção de Redes Sociais - Sempre no final -->
             <div class="social-section">
               <v-divider class="my-4"></v-divider>
 
-              <!-- Redes Sociais -->
               <v-card-subtitle class="px-0 text-subtitle-2 mb-3 text-center">
                 Siga-nos nas redes sociais
               </v-card-subtitle>
@@ -124,43 +143,60 @@
         </v-col>
       </v-row>
     </div>
+
+    <v-snackbar
+      v-model="snackbar.show"
+      :color="snackbar.color"
+      timeout="5000"
+      location="top right"
+    >
+      {{ snackbar.text }}
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar.show = false">Fechar</v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import axios from 'axios'
 import { myContact, type Contact } from '@/data/contact'
 import SocialUI from './ui/SocialUI.vue'
 
+// --- Definições de Tipos Seguros ---
 const contact = ref<Contact>(myContact)
-const BACKEND_CONFIG_MODE = true
 
-// Interfaces
 interface ContactForm {
   nome: string
   sobrenome: string
   email: string
   assunto: string
   mensagem: string
-  captcha: boolean
+  _honey: string // Campo anti-spam
 }
 
-interface ValidationResult {
-  valid: boolean
-}
+// Tipo seguro para input de validação (substitui o 'any')
+type ValidationValue = string | number | null | undefined | unknown;
+type ValidationRule = (value: ValidationValue) => string | boolean;
 
 interface FormRef {
-  validate: () => Promise<ValidationResult>
+  validate: () => Promise<{ valid: boolean; errors: unknown[] }>
   reset: () => void
+  resetValidation: () => void
 }
 
-// Tipos para regras de validação
-type ValidationRule = (value: string | boolean) => string | true
-type ValidationRules = ValidationRule[]
-
-// Estado do formulário
+// --- Estado ---
 const formValid = ref<boolean>(false)
+const isSubmitting = ref<boolean>(false)
 const contactForm = ref<FormRef | null>(null)
+
+// Feedback Visual
+const snackbar = reactive({
+  show: false,
+  text: '',
+  color: 'success'
+})
 
 // Dados do formulário
 const form = reactive<ContactForm>({
@@ -169,7 +205,7 @@ const form = reactive<ContactForm>({
   email: '',
   assunto: '',
   mensagem: '',
-  captcha: false
+  _honey: ''
 })
 
 // Opções de assunto
@@ -183,62 +219,95 @@ const assuntos: readonly string[] = [
   'Outros'
 ] as const
 
-// Regras de validação
-const nameRules: ValidationRules = [
-  (v: string | boolean): string | true => !!v || 'Campo obrigatório',
-  (v: string | boolean): string | true => (v && typeof v === 'string' && v.length >= 2) || 'Mínimo 2 caracteres'
+// --- Regras de Validação (Lint Free) ---
+// O uso de ValidationValue força verificarmos o tipo antes de usar
+
+const nameRules: ValidationRule[] = [
+  (v: ValidationValue) => !!v || 'Campo obrigatório',
+  (v: ValidationValue) => (typeof v === 'string' && v.length >= 2) || 'Mínimo 2 caracteres'
 ]
 
-const emailRules: ValidationRules = [
-  (v: string | boolean): string | true => !!v || 'Email obrigatório',
-  (v: string | boolean): string | true => (typeof v === 'string' && /.+@.+\..+/.test(v)) || 'Email deve ser válido'
+const emailRules: ValidationRule[] = [
+  (v: ValidationValue) => !!v || 'Email obrigatório',
+  (v: ValidationValue) => (typeof v === 'string' && /.+@.+\..+/.test(v)) || 'Email deve ser válido'
 ]
 
-const messageRules: ValidationRules = [
-  (v: string | boolean): string | true => !!v || 'Mensagem obrigatória',
-  (v: string | boolean): string | true => (v && typeof v === 'string' && v.length >= 10) || 'Mínimo 10 caracteres',
-  (v: string | boolean): string | true => (v && typeof v === 'string' && v.length <= 500) || 'Máximo 500 caracteres'
+const messageRules: ValidationRule[] = [
+  (v: ValidationValue) => !!v || 'Mensagem obrigatória',
+  (v: ValidationValue) => (typeof v === 'string' && v.length >= 10) || 'Mínimo 10 caracteres',
+  (v: ValidationValue) => (typeof v === 'string' && v.length <= 500) || 'Máximo 500 caracteres'
 ]
 
-const requiredRules: ValidationRules = [
-  (v: string | boolean): string | true => !!v || 'Campo obrigatório'
+const requiredRules: ValidationRule[] = [
+  (v: ValidationValue) => !!v || 'Campo obrigatório'
 ]
+
+// --- Funções ---
 
 // Função para resetar formulário
 const resetForm = (): void => {
+  // Limpa os dados reativos
   Object.assign(form, {
     nome: '',
     sobrenome: '',
     email: '',
     assunto: '',
     mensagem: '',
-    captcha: false
+    _honey: ''
   })
+
+  // Reseta o estado visual de validação do Vuetify
+  if (contactForm.value) {
+    contactForm.value.resetValidation()
+  }
 }
 
 // Função para enviar formulário
 const submitForm = async (): Promise<void> => {
-  if (!contactForm.value) {
-    console.error('Referência do formulário não encontrada')
-    return
-  }
+  if (!contactForm.value) return
+
+  // Validação do Vuetify
+  const validation = await contactForm.value.validate()
+  if (!validation.valid) return
+
+  // Proteção Honeypot (se preenchido, é bot)
+  if (form._honey) return
+
+  isSubmitting.value = true
 
   try {
-    const { valid }: ValidationResult = await contactForm.value.validate()
-
-    if (valid) {
-      // Aqui você implementaria o envio do formulário
-      console.log('Formulário válido:', form)
-
-      // Simular envio - substituir por chamada real à API
-      alert('Mensagem enviada com sucesso!')
-
-      // Reset do formulário
-      resetForm()
-      contactForm.value.reset()
+    // Configura o payload para o FormSubmit
+    const payload = {
+      name: `${form.nome} ${form.sobrenome}`, // FormSubmit prefere um campo 'name' unificado
+      email: form.email,
+      _subject: `Contato Site: ${form.assunto}`,
+      message: form.mensagem,
+      _template: 'table',
+      _captcha: 'false',
+      _cc: form.email // Opcional: envia cópia para o usuário
     }
+
+    // Envio via AJAX
+    await axios.post('https://formsubmit.co/ajax/contato@codan.tech', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+
+    // Sucesso
+    snackbar.text = 'Mensagem enviada com sucesso! Entraremos em contato em breve.'
+    snackbar.color = 'success'
+    snackbar.show = true
+    resetForm()
+
   } catch (error) {
-    console.error('Erro ao validar formulário:', error)
+    console.error('Erro no envio:', error)
+    snackbar.text = 'Erro ao enviar mensagem. Tente novamente mais tarde.'
+    snackbar.color = 'error'
+    snackbar.show = true
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>
@@ -246,7 +315,7 @@ const submitForm = async (): Promise<void> => {
 <style scoped>
 .title {
   color: rgba(255, 255, 255, 0.837);
-  font-family: "GOBOLD";
+  font-family: "GOBOLD", sans-serif;
 }
 
 .fill-height {
@@ -258,7 +327,6 @@ const submitForm = async (): Promise<void> => {
   min-height: 50vh;
   background: linear-gradient(180deg, #0E172B 0%, #1d2c4b 100%);
   width: 100%;
-  min-height: 50vh;
 }
 
 .container {
@@ -298,11 +366,7 @@ const submitForm = async (): Promise<void> => {
   gap: 8px;
 }
 
-.input {
-  border: 0.7px solid white !important;
-}
-
-/* Personalização dos campos para cor branca */
+/* Personalização dos inputs do Vuetify para tema Dark/Custom */
 :deep(.v-field__outline) {
   color: white !important;
 }
@@ -311,41 +375,41 @@ const submitForm = async (): Promise<void> => {
   color: white !important;
 }
 
-/* Label no estado normal (não focado) */
+/* Label no estado normal */
 :deep(.v-label) {
   color: white !important;
   opacity: 0.7;
 }
 
-/* Label quando focado ou com conteúdo */
+/* Label quando focado */
 :deep(.v-field--focused .v-label),
 :deep(.v-field--active .v-label) {
   color: white !important;
   opacity: 1;
 }
 
-/* Texto digitado no campo */
+/* Texto digitado */
 :deep(.v-field__input) {
   color: white !important;
 }
 
-/* Placeholder text */
+/* Placeholder */
 :deep(.v-field__input::placeholder) {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Contador de caracteres */
+/* Contador */
 :deep(.v-counter) {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Ícones dos campos (se houver) */
+/* Ícones */
 :deep(.v-field__prepend-inner .v-icon),
 :deep(.v-field__append-inner .v-icon) {
   color: white !important;
 }
 
-/* Mensagens de validação */
+/* Mensagens de erro */
 :deep(.v-messages__message) {
   color: rgba(255, 255, 255, 0.8) !important;
 }
