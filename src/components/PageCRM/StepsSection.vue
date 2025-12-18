@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { stepList, type Steps } from '../../data/crm/steps'
-import marvin from '@/assets/img/mascot/airobot.png'
 
 interface Props {
   gradient?: [string, string]; // Array com 2 cores

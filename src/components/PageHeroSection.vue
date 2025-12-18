@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-defineProps<{ title: string, subtitle1: string,subtitle2: string, chip: string, color: string, btn: boolean }>()
+defineProps<{ title: string, subtitle1?: string, subtitle2?: string, chip: string, color: string, btn: boolean }>()
 </script>
 
 <template>

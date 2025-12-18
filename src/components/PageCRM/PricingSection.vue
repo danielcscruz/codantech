@@ -115,7 +115,10 @@ const props = withDefaults(defineProps<Props>(), {
                   v-model="service.active"
                   color="success"
                   hide-details
-                  :disabled="service.alwaysOn || (service.requiredId && !services.find(s => s.id === service.requiredId)?.active)"
+                  :disabled="Boolean(
+  service.alwaysOn ||
+  (service.requiredId && !services.find(s => s.id === service.requiredId)?.active)
+)"
                   @change="toggleService(service)"
                 ></v-switch>
               </v-card-text>
