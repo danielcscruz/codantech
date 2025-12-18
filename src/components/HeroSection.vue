@@ -122,9 +122,8 @@ onUnmounted(() => {
         </p>
       </div>
       <div class="buttons pt-5">
-        <v-btn size="small" to="/projects" color="primary" append-icon="mdi-eye" variant="outlined"
-          class="px-3 mt-4">Ver meus
-          Projetos</v-btn>
+        <v-btn size="small" to="/products" color="primary" append-icon="mdi-eye" variant="outlined"
+          class="px-3 mt-4">Ver Produtos</v-btn>
         <v-btn size="small" to="/contact" color="primary" append-icon="mdi-arrow-right-thin" variant="tonal"
           class="px-3 mt-4">Começar um
           Projeto</v-btn>

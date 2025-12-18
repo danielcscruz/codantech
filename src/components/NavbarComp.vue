@@ -98,6 +98,7 @@ function handleClick() {
 
 const menuItems = [
   { label: 'Home', to: '/' },
+  { label: 'Produtos', to: '/products' },
   { label: 'Serviços', to: '/services' },
   { label: 'Projetos', to: '/projects' },
 ];

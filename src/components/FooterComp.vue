@@ -11,9 +11,10 @@ import LogoUI from './ui/LogoUI.vue';
             <LogoUI />
 
           </div>
-          <p class="mt-4 ml-4 text-left">Somos especializados em desenvolvimento Python, Django e na criação de aplicações web escaláveis,
-            soluções
-            de API e automações para empresas </p>
+          <p class="mt-4 ml-4 text-left">Somos especializados em desenvolvimento de aplicações web escaláveis,
+            soluções utilizando IA e scripts de automação
+           </p>
+           <p class="mt-4 ml-4 text-left">CNPJ 53.311.461/0001-41</p>
           <!-- <SocialUI /> -->
 
         </v-col>

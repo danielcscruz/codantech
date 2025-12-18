@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-defineProps<{ title: string, chip: string, color: string, btn: boolean }>()
+defineProps<{ title: string, subtitle1: string,subtitle2: string, chip: string, color: string, btn: boolean }>()
 </script>
 
 <template>
@@ -16,6 +16,8 @@ defineProps<{ title: string, chip: string, color: string, btn: boolean }>()
       </v-chip>
 
       <h3>{{ title }}</h3>
+      <h5>{{ subtitle1 }}</h5>
+      <h5>{{ subtitle2 }}</h5>
 
       <div class="buttons pt-5">
         <v-btn v-if="btn" size="small" to="/contact" color="primary" append-icon="mdi-arrow-right-thin" variant="tonal"
@@ -31,6 +33,12 @@ defineProps<{ title: string, chip: string, color: string, btn: boolean }>()
 h3 {
   font-family: "GOBOLD HOLLOW BOLD";
   font-size: 60px;
+  color: rgba(225, 225, 225, 0.813);
+}
+
+h5 {
+  font-family: "GOBOLD LIGHT";
+  font-size: 20px;
   color: rgba(225, 225, 225, 0.813);
 }
 
